@@ -9,7 +9,7 @@
     <Grid>
         <DockPanel LastChildFill="True">
             <!-- Button docked to the right -->
-            <Button DockPanel.Dock="Right" Click="Button_Click" Content="Refresh" 
+            <Button DockPanel.Dock="Right" Click="Refresh_OnClick" Content="Refresh" 
             Margin="5" Width="80" Height="30" VerticalAlignment="Top"/>
 
             <ListView ItemsSource="{Binding Processes}" ScrollViewer.VerticalScrollBarVisibility="Auto">

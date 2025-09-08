@@ -1,6 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Immutable;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Path = System.IO.Path;
 
 namespace WpfApp1
 {
@@ -28,52 +31,64 @@ namespace WpfApp1
     }
     public partial class MainWindow : Window
     {
+        public const string LogsDirName = "Logs";
         public ObservableCollection<ProcessResponse> Processes { get; set; } = new();
 
-        public void RefreshProcesses()
+        private List<ProcessResponse> GetCurrentProcesses()
         {
-            var res = Process.GetProcesses()
+           return Process.GetProcesses()
                 .Select(x => new ProcessResponse
                 {
                     Id = x.Id,
                     Name = x.ProcessName,
                     Memory = x.WorkingSet64 / (1024 * 1024), // MB
-                    StartTime = DateTime.Now, // x.StartTime
+                    StartTime = DateTime.Now, // x.StartTime,
                     RespondingStatus = x.Responding
-                }).OrderBy(x => x.Name)
-            .ToList();
-            
+                })
+                .OrderBy(x => x.Name)
+                .ToList();
+        }
+
+        private async Task RefreshProcesses()
+        {
+            var newProcesses = await Task.Run(GetCurrentProcesses);
             Processes.Clear();
-            foreach (var x in res) Processes.Add(x);
+            newProcesses.ForEach(process => Processes.Add(process));
+            await SaveToFile();
+        }
+
+        private async Task SaveToFile()
+        {
+            var logsDir = Path.Join(Directory.GetCurrentDirectory(), LogsDirName);
+            if (!Directory.Exists(logsDir))
+            {
+                Directory.CreateDirectory(logsDir);
+            }
+            var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            var logFilePath = Path.Combine(logsDir, $"processes_{timestamp}.log");
+            var content = string.Join(Environment.NewLine, Processes.Select(p => 
+                $"ID: {p.Id}, Name: {p.Name}, Memory: {p.Memory} MB, StartTime: {p.StartTime}, Responding: {p.RespondingStatus}"));
+        
+            await File.WriteAllTextAsync(logFilePath, content);
+        }
+        private async Task ProcessRefreshWorker()
+        {
+            while (true)
+            {
+                await RefreshProcesses();
+                await Task.Delay(5000);
+            }
         }
         public MainWindow()
         {
             InitializeComponent();
             DataContext = this;
-            _ = RefreshProccess();
+            _ = ProcessRefreshWorker();
         }
 
-        public async Task RefreshProccess()
+        private async void Refresh_OnClick(object sender, RoutedEventArgs e)
         {
-            while (true)
-            {
-                RefreshProcesses();
-                await Task.Delay(2000);
-            }
-        }
-
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            RefreshProcesses();
-        }
-
-        private void Window_Closing(object sender, CancelEventArgs e)
-        {
-         
-                e.Cancel = true;
-                Hide();
-            
+            await RefreshProcesses();
         }
     }
 }
