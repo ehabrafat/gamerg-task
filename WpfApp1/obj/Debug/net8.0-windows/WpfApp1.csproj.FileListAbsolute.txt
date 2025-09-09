@@ -39,3 +39,6 @@ I:\gamerg-task\WpfApp1\obj\Debug\net8.0-windows\refint\WpfApp1.dll
 I:\gamerg-task\WpfApp1\obj\Debug\net8.0-windows\WpfApp1.pdb
 I:\gamerg-task\WpfApp1\obj\Debug\net8.0-windows\WpfApp1.genruntimeconfig.cache
 I:\gamerg-task\WpfApp1\obj\Debug\net8.0-windows\ref\WpfApp1.dll
+I:\gamerg-task\WpfApp1\obj\Debug\net8.0-windows\WpfApp1.csproj.AssemblyReference.cache
+I:\gamerg-task\WpfApp1\bin\Debug\net8.0-windows\Hardcodet.Wpf.TaskbarNotification.dll
+I:\gamerg-task\WpfApp1\obj\Debug\net8.0-windows\WpfApp1.csproj.Up2Date

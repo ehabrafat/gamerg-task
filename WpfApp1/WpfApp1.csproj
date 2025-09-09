@@ -8,4 +8,13 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Hardcodet.Wpf.TaskbarNotification" Version="1.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="assets\tray_icon.ico" />
+    <Resource Include="assets\tray_icon.ico" />
+  </ItemGroup>
+
 </Project>

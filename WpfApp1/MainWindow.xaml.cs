@@ -5,14 +5,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Path = System.IO.Path;
 
 namespace WpfApp1
@@ -31,6 +23,7 @@ namespace WpfApp1
     }
     public partial class MainWindow : Window
     {
+    
         public const string LogsDirName = "Logs";
         public ObservableCollection<ProcessResponse> Processes { get; set; } = new();
 
@@ -73,10 +66,10 @@ namespace WpfApp1
         }
         private async Task ProcessRefreshWorker()
         {
-            while (true)
+            while (true) // cancel token
             {
                 await RefreshProcesses();
-                await Task.Delay(5000);
+                await Task.Delay(2000);
             }
         }
         public MainWindow()
@@ -89,6 +82,12 @@ namespace WpfApp1
         private async void Refresh_OnClick(object sender, RoutedEventArgs e)
         {
             await RefreshProcesses();
+        }
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+            base.OnClosing(e);
         }
     }
 }

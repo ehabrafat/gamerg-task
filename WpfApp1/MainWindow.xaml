@@ -4,9 +4,31 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <tb:TaskbarIcon x:Name="TrayIcon"
+                        IconSource="/assets/tray_icon.ico"
+                        ToolTipText="Process Monitor"
+        >
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                    <!-- Show Menu Item -->
+                    <MenuItem Header="Show">
+                   
+                    </MenuItem>
+            
+                    <!-- Separator -->
+                    <Separator/>
+            
+                    <!-- Exit Menu Item -->
+                    <MenuItem Header="Exit">
+       
+                    </MenuItem>
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+        </tb:TaskbarIcon>
         <DockPanel LastChildFill="True">
             <!-- Button docked to the right -->
             <Button DockPanel.Dock="Right" Click="Refresh_OnClick" Content="Refresh" 
