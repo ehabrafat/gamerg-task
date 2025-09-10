@@ -1,0 +1,16 @@
+ID: 1276, Name: backgroundTaskHost, Memory: 24 MB, StartTime: 9/10/2025 9:55:47 AM, Responding: True
+ID: 11652, Name: backgroundTaskHost, Memory: 29 MB, StartTime: 9/10/2025 9:55:47 AM, Responding: True
+ID: 13172, Name: CompPkgSrv, Memory: 8 MB, StartTime: 9/10/2025 9:55:47 AM, Responding: True
+ID: 10352, Name: jucheck, Memory: 15 MB, StartTime: 9/10/2025 9:55:47 AM, Responding: True
+ID: 3092, Name: MoUsoCoreWorker, Memory: 31 MB, StartTime: 9/10/2025 9:55:47 AM, Responding: True
+ID: 9984, Name: Rider.Backend, Memory: 917 MB, StartTime: 9/10/2025 9:55:47 AM, Responding: True
+ID: 7720, Name: RuntimeBroker, Memory: 27 MB, StartTime: 9/10/2025 9:55:47 AM, Responding: True
+ID: 8148, Name: RuntimeBroker, Memory: 34 MB, StartTime: 9/10/2025 9:55:47 AM, Responding: True
+ID: 7256, Name: RuntimeBroker, Memory: 27 MB, StartTime: 9/10/2025 9:55:47 AM, Responding: True
+ID: 5884, Name: RuntimeBroker, Memory: 18 MB, StartTime: 9/10/2025 9:55:47 AM, Responding: True
+ID: 9880, Name: RuntimeBroker, Memory: 29 MB, StartTime: 9/10/2025 9:55:47 AM, Responding: True
+ID: 11360, Name: RuntimeBroker, Memory: 6 MB, StartTime: 9/10/2025 9:55:47 AM, Responding: True
+ID: 6724, Name: taskhostw, Memory: 17 MB, StartTime: 9/10/2025 9:55:47 AM, Responding: True
+ID: 8712, Name: TiWorker, Memory: 108 MB, StartTime: 9/10/2025 9:55:47 AM, Responding: True
+ID: 8612, Name: UserOOBEBroker, Memory: 9 MB, StartTime: 9/10/2025 9:55:47 AM, Responding: True
+ID: 3640, Name: WorkerService1, Memory: 31 MB, StartTime: 9/10/2025 9:55:47 AM, Responding: True

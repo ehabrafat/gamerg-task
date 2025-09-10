@@ -31,8 +31,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     private TaskbarIcon? _trayIcon;
     private bool _exit;
     private CancellationTokenSource _cancellationTokenSource;
-
-    public string TextSearch { get; set; }
+    public string? SearchText { get; set; }
     public CancellationTokenSource CancellationTokenSource
     {
         get => _cancellationTokenSource;
@@ -67,13 +66,18 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     private List<ProcessResponse> GetCurrentProcesses()
     {
    
-        var currentProcesses = new List<ProcessResponse>();
+        var processResponses = new List<ProcessResponse>();
         
-        foreach (var process in Process.GetProcesses())
+        var processes = Process.GetProcesses();
+        
+        if (!string.IsNullOrEmpty(SearchText))
+            processes = processes.Where(x => x.ProcessName.Contains(SearchText)).ToArray();
+        
+        foreach (var process in processes)
         {
             try
             {
-                currentProcesses.Add(new ProcessResponse { 
+                processResponses.Add(new ProcessResponse { 
                     Id = process.Id, 
                     Name = process.ProcessName, 
                     StartTime =  DateTime.Now, //process.StartTime,
@@ -86,7 +90,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                 // ignored
             }
         }
-        return currentProcesses.OrderBy(x => x.Name).ToList();
+        return processResponses.OrderBy(x => x.Name).ToList();
         
     }
     private async Task RefreshProcesses(CancellationToken cancellationToken = default)
@@ -168,7 +172,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            Console.Write(ex.Message);
+            Console.WriteLine(ex.Message);
         }
     }
     
@@ -226,6 +230,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
     private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
     {
-        Console.WriteLine(TextSearch);
+        SearchText = SearchTextBox.Text;
+        _ = RefreshProcesses();
     }
 }
