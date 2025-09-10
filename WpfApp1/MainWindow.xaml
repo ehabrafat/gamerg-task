@@ -8,32 +8,37 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <tb:TaskbarIcon x:Name="TrayIcon"
-                        IconSource="/assets/tray_icon.ico"
-                        ToolTipText="Process Monitor"
-        >
-            <tb:TaskbarIcon.ContextMenu>
-                <ContextMenu>
-                    <!-- Show Menu Item -->
-                    <MenuItem Header="Show">
-                   
-                    </MenuItem>
-            
-                    <!-- Separator -->
-                    <Separator/>
-            
-                    <!-- Exit Menu Item -->
-                    <MenuItem Header="Exit">
-       
-                    </MenuItem>
-                </ContextMenu>
-            </tb:TaskbarIcon.ContextMenu>
-        </tb:TaskbarIcon>
         <DockPanel LastChildFill="True">
-            <!-- Button docked to the right -->
-            <Button DockPanel.Dock="Right" Click="Refresh_OnClick" Content="Refresh" 
-            Margin="5" Width="80" Height="30" VerticalAlignment="Top"/>
+            <StackPanel DockPanel.Dock="Right" Orientation="Vertical" Margin="5" Width="150">
+                <Button Click="Refresh_OnClick" Content="Refresh" 
+                        Height="30"
+                        Margin="0,0,0,10"
+                        />
+                
+                <Separator />
+                <StackPanel DockPanel.Dock="Top" Orientation="Vertical" Margin="5">
+                    <TextBlock Text="Auto Refresh" 
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,10"
+                               FontWeight="Bold"/>
+                    <Button Click="StopAutoRefresh_OnClick" Content="Stop"  Margin="0,0,0,10"
+                            Height="30"
+                            IsEnabled="{Binding RefreshRunning}"/>
+                
+                    <Button Click="RunAutoRefresh_OnClick" Content="Run" 
+                            Height="30"
+                            IsEnabled="{Binding RefreshStopped}"/>
+                </StackPanel>
+                <Separator Margin="0,5,0,0"/>
 
+                <StackPanel DockPanel.Dock="Top" Orientation="Vertical" Margin="5">
+                    <TextBlock Text="Search" HorizontalAlignment="Center" Margin="0,0,0,5" FontWeight="Bold"/>
+                    <TextBox x:Name="SearchTextBox" HorizontalAlignment="Stretch" Height="25"  
+                             TextChanged="SearchTextBox_TextChanged"
+                             VerticalContentAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+            
             <ListView ItemsSource="{Binding Processes}" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.View>
                     <GridView>
